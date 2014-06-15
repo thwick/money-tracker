@@ -1,0 +1,53 @@
+/* app css stylesheet */
+
+body {
+  padding-top: 20px;
+}
+
+.navbar-inner {
+  background-color: #fafafa; 
+	background-image: linear-gradient(to bottom,#fff,#f2f2f2);
+	background-repeat: repeat-x;
+  filter: none;
+}
+
+
+.categories {
+  list-style: none;
+}
+
+.categories li {
+  clear: both;
+  height: 100px;
+  padding-top: 15px;
+}
+
+/** Detail View **/
+
+
+ul.specs > li{
+  display: inline-block;
+  width: 200px;
+  vertical-align: top;
+}
+
+ul.specs > li > span{
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+ul.specs dt {
+  font-weight: bold;
+}
+
+h1 {
+  border-bottom: 1px solid gray;
+}
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 400px; 
+    height: 300px
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

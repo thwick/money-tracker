@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row-fluid">
+
+  	<form novalidate class="simple-form">
+        Name: <input type="text" ng-model="category.categoryName" /><br />
+        <button ng-click="reset()">RESET</button>
+        <button ng-click="update()">SAVE</button>
+    </form>
+    <h3>categories</h3>
+    <div class="gridStyle" ng-grid="gridOptions"></div>
+	    
+	    <hr>
+	  	<form novalidate class="simple-form">
+	        <button ng-click="delete()">DELETE</button>
+	    </form>
+
+  </div>
+</div>
