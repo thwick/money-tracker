@@ -12,7 +12,7 @@ public abstract class AbstractDAO<T> {
 	@PersistenceContext
     protected EntityManager em;
 	
-	private Class<T> type;
+	protected Class<T> type;
 
     public AbstractDAO() {
         Type t = getClass().getGenericSuperclass();
@@ -39,12 +39,12 @@ public abstract class AbstractDAO<T> {
     }
     
     public T find(final Object id) {
-        return (T) this.em.find(type, id);
+        return this.em.find(type, id);
     }
     
     @SuppressWarnings("unchecked")
 	public List< T > findAll(){
-        return em.createQuery( "from " + type.getName() ).getResultList();
+        return em.createQuery( "from " + type.getName()).getResultList();
      }
     
     public T update(final T t) {

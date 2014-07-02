@@ -16,18 +16,20 @@ budgetControllers.controller('AccountListCtrl', ['$scope', 'Account', '$log',
     $scope.accounts = Account.query();
     $scope.selectedItems = [];
 	$scope.gridOptions = { data: 'accounts.account', 
-							showSelectionCheckbox: true,  
 							selectedItems: $scope.selectedItems,
 							multiSelect: false,
 							enableSorting: true,
-							enableCellEdit: true,
+							enableCellEdit: false,
 							columnDefs: [
-								{field:"id", displayName:"Edit", cellTemplate: "<div><a href='#/account/{{row.getProperty(col.field)}}'><img src='img/pencil.png'/></a></div>" },
+								{field:"id", displayName:"Edit", 
+									cellTemplate: "<div ui-sref='account({ id: {{row.getProperty(col.field)}} })'><img src='img/pencil.png'/></div>" },
+									                   
 						        {field:"accountName", displayName:"Name"},
 						        {field:"description", displayName:"Description"},
 						        {field:"retirement", displayName:"Retirement"}
 						    ]
 	};
+
 	
     $scope.update = function() {
    	 	Account.save([], $scope.account, function(value, responseHeaders) {
@@ -57,11 +59,28 @@ budgetControllers.controller('AccountListCtrl', ['$scope', 'Account', '$log',
     
   }]);
 
-budgetControllers.controller('AccountDetailCtrl', ['$scope', '$routeParams', 'Account',
-  function($scope, $routeParams, Account) {
-  
-    $scope.account = Account.query($routeParams.accountId);
-
+budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'AccountTransaction', '$log', '$stateParams',
+  function($scope, Account, AccountTransaction, $log, $stateParams) {
+    $scope.id = $stateParams.id;
+    $scope.transactions = [];
+    
+	//$scope.account = Account.query($stateParams.id);
+	$scope.account = Account.get({},{'id': $stateParams.id});
+	
+	$scope.listTransactions = function() {
+		$scope.transactions = AccountTransaction.query({},{'id': $stateParams.id});
+	}
+	$scope.transactions = $scope.listTransactions();
+	
+	$scope.gridOptions = { data: 'transactions.transaction', 
+							showSelectionCheckbox: true,  
+							enableSorting: true,
+							columnDefs: [
+						        {field:"transactionId", displayName:"Transaction Id"},
+						        {field:"description", displayName:"Description"}
+						    ]
+	};
+	
   }]);
 
  
@@ -69,6 +88,7 @@ budgetControllers.controller('CategoryListCtrl', ['$scope', 'Category', '$log',
   function($scope, Category, $log) {
   	
     $scope.categories = Category.query();
+    
     $scope.selectedItems = [];
 	$scope.gridOptions = { data: 'categories.category', 
 							showSelectionCheckbox: true,  

@@ -14,7 +14,7 @@ budgetServices.factory('Home', ['$resource',
   
 budgetServices.factory('Account', ['$resource',
   function($resource){
-    return $resource('/rest/api/accounts/:id', {}, {
+    return $resource('/rest/api/accounts/:id', {id:'@id'}, {
       query: {method:'GET', isArray:false},
       save:	{method:'POST'}
     });
@@ -22,9 +22,16 @@ budgetServices.factory('Account', ['$resource',
   
 budgetServices.factory('Category', ['$resource',
   function($resource){
-    return $resource('/rest/api/categories/:id', {}, {
+    return $resource('/rest/api/categories/:id', {id:'@id'}, {
       query: {method:'GET', isArray:false},
       save:	{method:'POST'}
     });
   }]); 
   
+budgetServices.factory('AccountTransaction', ['$resource',
+  function($resource){
+    return $resource('/rest/api/accounts/:id/transactions ', {id:'@id'}, {
+      query: {method:'GET', isArray:false},
+      save:	{method:'POST'}
+    });
+  }]); 

@@ -31,8 +31,9 @@ budgetApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvid
 	})
 	
 	$stateProvider.state('account', {
+		url: '/accounts/{id}',
         templateUrl: 'partials/account-detail.html',
-        controller: 'AccountListCtrl'
+        controller: 'AccountRegisterCtrl'
 	})
 	
 	$urlRouterProvider.otherwise("/");

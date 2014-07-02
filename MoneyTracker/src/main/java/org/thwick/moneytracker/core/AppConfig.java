@@ -13,6 +13,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.thwick.moneytracker.dao.AccountDAO;
 import org.thwick.moneytracker.dao.CategoryDAO;
+import org.thwick.moneytracker.dao.TransactionDAO;
 import org.thwick.moneytracker.resources.CategoriesResource;
 
 // http://aredko.blogspot.com/2013/01/going-rest-embedding-jetty-with-spring.html
@@ -81,6 +82,11 @@ public class AppConfig {
 	@Bean
 	public AccountDAO accountDAO() {
 		return new AccountDAO();
+	}
+	
+	@Bean
+	public TransactionDAO transactionDAO() {
+		return new TransactionDAO();
 	}
 	
 	@Bean
