@@ -59,12 +59,16 @@ budgetControllers.controller('AccountListCtrl', ['$scope', 'Account', '$log',
     
   }]);
 
-budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'AccountTransaction', '$log', '$stateParams',
-  function($scope, Account, AccountTransaction, $log, $stateParams) {
+budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'AccountTransaction', 'Transaction',
+									'Category', '$log', '$stateParams',
+  function($scope, Account, AccountTransaction, Transaction, Category, $log, $stateParams) {
     $scope.id = $stateParams.id;
+    
+    
+    $scope.categories = Category.query();
+    
     $scope.transactions = [];
     
-	//$scope.account = Account.query($stateParams.id);
 	$scope.account = Account.get({},{'id': $stateParams.id});
 	
 	$scope.listTransactions = function() {
@@ -75,12 +79,28 @@ budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'Accou
 	$scope.gridOptions = { data: 'transactions.transaction', 
 							showSelectionCheckbox: true,  
 							enableSorting: true,
+							enableCellEditOnFocus: true,
+							enableCellEdit:true,
+      						enableCellSelection:true,
 							columnDefs: [
 						        {field:"transactionId", displayName:"Transaction Id"},
-						        {field:"description", displayName:"Description"}
+						        {field:"category", displayName:"Category"},
+						        {field:"description", displayName:"Description"},
+						        {field:"amount", displayName:"Amount"}
 						    ]
 	};
 	
+	 $scope.saveTransaction = function() {
+	 	$scope.newTransaction.accountId = $stateParams.id;
+   	 	Transaction.save([], $scope.newTransaction, function(value, responseHeaders) {
+   	 		$scope.refresh();
+   	 	})
+    }
+    
+   $scope.refresh = function() {
+	    $scope.accounts = Account.query();
+		$scope.gridOptions = { data: 'accounts.account' };
+    }
   }]);
 
  

@@ -59,4 +59,9 @@ public class AccountService {
 	public void delete(Long accountId) {
 		accountDAO.delete(accountId);
 	}
+	
+	@Transactional
+	public Transaction updateAccountTransaction(Transaction transaction) {
+		return transactionDAO.update(transaction);
+	}
 }

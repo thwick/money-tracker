@@ -1,14 +1,11 @@
 package org.thwick.moneytracker.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -33,8 +30,8 @@ public class Category {
 	@JoinColumn(name="parent_category_pkid")
 	private Category parentCategory;
 	
-	@OneToMany(mappedBy="accountId")
-	private List<Transaction> transations;
+//	@OneToMany(mappedBy="id", fetch = FetchType.EAGER)
+//	private List<Transaction> transations;
 	
 	public Category() {}
 	
@@ -66,13 +63,13 @@ public class Category {
 		this.parentCategory = parentCategory;
 	}
 
-	public List<Transaction> getTransations() {
-		return transations;
-	}
-
-	public void setTransations(List<Transaction> transations) {
-		this.transations = transations;
-	}
+//	public List<Transaction> getTransations() {
+//		return transations;
+//	}
+//
+//	public void setTransations(List<Transaction> transations) {
+//		this.transations = transations;
+//	}
 
 	@Override
 	public String toString() {

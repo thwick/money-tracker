@@ -34,4 +34,12 @@ budgetServices.factory('AccountTransaction', ['$resource',
       query: {method:'GET', isArray:false},
       save:	{method:'POST'}
     });
-  }]); 
+  }]);
+  
+budgetServices.factory('Transaction', ['$resource',
+  function($resource){
+    return $resource('/rest/api/transactions/:id ', {id:'@id'}, {
+      query: {method:'GET', isArray:false},
+      save:	{method:'POST'}
+    });
+}]);  

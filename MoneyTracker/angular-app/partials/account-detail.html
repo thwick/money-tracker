@@ -3,6 +3,35 @@
 
     <h2>Name: {{account.accountName}}</h3>
     
+    <form name="transactionForm" novalidate class="form">
+  		<label>New Transaction</label>  
+	  	<div class="form-group">
+		    <label for="accountInputName">Add description</label>
+		    <input type="text" class="form-control" id="transactionDescriptionInput" placeholder="Description" ng-model="newTransaction.description">
+		</div>
+	  	<div class="form-group">
+		    <label for="accountInputName">Account Name</label>
+		    <input type="number" class="form-control" id="transactionAmountInput" placeholder="Amount" ng-model="newTransaction.amount">
+		</div>
+        <tt>transactionForm.transactionAmount.$valid = {{transactionForm.transactionAmount.$valid}}</tt><br/>
+		  <tt>transactionForm.transactionAmount.$error = {{transactionForm.transactionAmount.$error}}</tt><br/>
+		  <tt>transactionForm.$valid = {{transactionForm.$valid}}</tt><br/>
+        <div class="btn-group" dropdown is-open="status.isopen">
+	    <select data-ng-model="newTransaction.category"
+                data-ng-options="category.categoryName for category in categories.category">                
+        </select>
+	        <div class="col-md-6">
+		        <p class="input-group">
+		          <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy" ng-model="newTransaction.transactionDt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+		          <span class="input-group-btn">
+		            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+		          </span>
+		        </p>
+	        </div>
+	    </div>
+        <button class="btn" ng-click="saveTransaction()">Add</button>
+    </form>
+    
 	<div class="gridStyle" ng-grid="gridOptions"></div>    
   </div>
 </div>

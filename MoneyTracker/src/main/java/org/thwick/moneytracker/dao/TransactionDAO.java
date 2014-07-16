@@ -17,4 +17,5 @@ public class TransactionDAO extends AbstractDAO<Transaction> {
 			      em.createQuery("SELECT t FROM Transaction t", Transaction.class);
 		return query.getResultList();
 	}
+	
 }
