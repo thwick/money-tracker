@@ -1,5 +1,7 @@
 package org.thwick.moneytracker.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -15,6 +17,11 @@ public class TransactionService {
 	
 	public TransactionService() {
 		
+	}
+	
+	@Transactional
+	public List<Transaction> findAll() {    
+		return transactionDAO.findAll();
 	}
 	
 	@Transactional

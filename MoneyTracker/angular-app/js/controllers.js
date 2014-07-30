@@ -64,18 +64,24 @@ budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'Accou
   function($scope, Account, AccountTransaction, Transaction, Category, $log, $stateParams) {
     $scope.id = $stateParams.id;
     
-    
+    $scope.dateOptions = {
+	    formatYear: 'yy',
+	    startingDay: 1
+	  };
+  
+  $scope.open = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+
+    $scope.opened = true;
+  };
+  
     $scope.categories = Category.query();
     
-    $scope.transactions = [];
+    $scope.account = Account.get({},{'id': $stateParams.id});
+    	
+	$scope.transactions = AccountTransaction.query({},{'id': $stateParams.id});
     
-	$scope.account = Account.get({},{'id': $stateParams.id});
-	
-	$scope.listTransactions = function() {
-		$scope.transactions = AccountTransaction.query({},{'id': $stateParams.id});
-	}
-	$scope.transactions = $scope.listTransactions();
-	
 	$scope.gridOptions = { data: 'transactions.transaction', 
 							showSelectionCheckbox: true,  
 							enableSorting: true,
@@ -83,8 +89,9 @@ budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'Accou
 							enableCellEdit:true,
       						enableCellSelection:true,
 							columnDefs: [
-						        {field:"transactionId", displayName:"Transaction Id"},
-						        {field:"category", displayName:"Category"},
+						        {field:"id", displayName:"Id"},
+						        {field:"transactionDt", displayName:"Date"},
+						        {field:"category.categoryName", displayName:"Category"},
 						        {field:"description", displayName:"Description"},
 						        {field:"amount", displayName:"Amount"}
 						    ]
@@ -92,6 +99,7 @@ budgetControllers.controller('AccountRegisterCtrl', ['$scope', 'Account', 'Accou
 	
 	 $scope.saveTransaction = function() {
 	 	$scope.newTransaction.accountId = $stateParams.id;
+	 	$scope.newTransaction.categoryId = $scope.selectedCategory.id;
    	 	Transaction.save([], $scope.newTransaction, function(value, responseHeaders) {
    	 		$scope.refresh();
    	 	})

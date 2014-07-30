@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -36,9 +39,15 @@ public class Transaction {
 	@JsonProperty("amount")
 	private BigDecimal amount;
 	
-	@Column(name = "category_id")
 	@JsonProperty("categoryId")
 	private Long categoryId;
+	
+	@JsonProperty("categoryName")
+	private Long categoryName;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="category_id")
+	private Category category;
 	
 	@Column(name = "transaction_dt")
 	@JsonProperty("transactionDt")
@@ -77,11 +86,19 @@ public class Transaction {
 	}
 
 	public Long getCategoryId() {
-		return categoryId;
+		return category.getId();
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public String getCategoryName() {
+		return category.getCategoryName();
+	}
+	
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
 	public Date getTransactionDt() {
