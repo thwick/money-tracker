@@ -27,7 +27,10 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "account_id")
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="account_id")
+	private Account account;
+	
 	@JsonProperty("accountId")
 	private Long accountId;
 	
@@ -61,12 +64,17 @@ public class Transaction {
 		this.id = id;
 	}
 
-	public Long getAccountId() {
-		return accountId;
+	
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccountId(Long accountId) {
-		this.accountId = accountId;
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public Long getAccountId() {
+		return accountId;
 	}
 
 	public String getDescription() {

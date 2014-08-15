@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
 import org.thwick.moneytracker.models.Account;
+import org.thwick.moneytracker.models.AccountBalance;
 import org.thwick.moneytracker.models.Transaction;
 import org.thwick.moneytracker.services.AccountService;
 
@@ -58,6 +59,11 @@ public class AccountsResource {
 	@GET  @Path("{id}/transactions")
 	public List<Transaction> findTransactions(@PathParam("id") Long id) {
 		return accountService.findAccountTransactions(id);
+	}
+	
+	@GET  @Path("{id}/balance")
+	public AccountBalance getBalance(@PathParam("id") Long id) {
+		return accountService.getAccountBalance(id);
 	}
 	
 	@DELETE @Path("{id}")
