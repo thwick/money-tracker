@@ -16,7 +16,9 @@ public class TransactionDAO extends AbstractDAO<Transaction> {
 	
 	public List<Transaction> findByAccountId(Long accountId) {
 		TypedQuery<Transaction> query =
-			      em.createQuery("SELECT t FROM Transaction t", Transaction.class);
+			      em.createQuery("SELECT t FROM Transaction t  WHERE account_id = :accountId", Transaction.class);
+		query.setParameter("accountId", accountId);
+		
 		return query.getResultList();
 	}
 	

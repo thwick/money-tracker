@@ -77,6 +77,10 @@ public class Transaction {
 		return accountId;
 	}
 
+	public void setAccountId(Long accountId) {
+		this.accountId = accountId;
+	}
+	
 	public String getDescription() {
 		return description;
 	}
@@ -94,9 +98,17 @@ public class Transaction {
 	}
 
 	public Long getCategoryId() {
-		return category.getId();
+		if (category != null) {
+			return category.getId();
+		}
+		
+		return categoryId;
 	}
 
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
+	}
+	
 	public String getCategoryName() {
 		return category.getCategoryName();
 	}

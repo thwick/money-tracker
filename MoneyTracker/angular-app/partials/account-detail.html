@@ -1,23 +1,27 @@
 <div class="container-fluid">
   <div class="row-fluid">
 
-    <h2>Name: {{account.accountName}}</h3>
-    
-    <form name="transactionForm" novalidate class="form">
-  		<label>New Transaction</label>  
+	<div class="page-header">
+   		<h2>{{account.accountName}}: {{balance.balance}}</h2>
+   		<p>{{account.description}}</p>
+	</div> 
+	
+	<div class="gridStyle" ng-grid="gridOptions"></div>   
+	<p/>
+    <form name="transactionForm" novalidate class="well form">
+  		<h4>New Transaction</h4>  
 	  	<div class="form-group">
-		    <label for="accountInputName">Add description</label>
+		    <label for="accountInputName">Description</label>
 		    <input type="text" class="form-control" id="transactionDescriptionInput" placeholder="Description" ng-model="newTransaction.description">
 		</div>
 	  	<div class="form-group">
 		    <label for="accountInputName">Amount</label>
 		    <input type="number" class="form-control" id="transactionAmountInput" placeholder="Amount" ng-model="newTransaction.amount">
 		</div>
-        <tt>transactionForm.transactionAmount.$valid = {{transactionForm.transactionAmount.$valid}}</tt><br/>
-		  <tt>transactionForm.transactionAmount.$error = {{transactionForm.transactionAmount.$error}}</tt><br/>
-		  <tt>transactionForm.$valid = {{transactionForm.$valid}}</tt><br/>
+
+		<label for="accountInputName">Category</label>
         <div class="btn-group" dropdown is-open="status.isopen">
-		    <select data-ng-model="selectedCategory"
+	 	    <select data-ng-model="selectedCategory"
 	                data-ng-options="category as category.categoryName for category in categories.category">                
 	        </select>
     	</div>
@@ -34,10 +38,8 @@
         <button class="btn" ng-click="saveTransaction()">Add</button>
     </form>
     
-	<div class="gridStyle" ng-grid="gridOptions"></div>   
 	
-	<div>
-		<p>{{balance.balance}}</p>
-	</div> 
+	
+
   </div>
 </div>

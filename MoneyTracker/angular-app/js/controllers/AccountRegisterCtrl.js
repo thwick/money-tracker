@@ -3,6 +3,13 @@ angular.module('budgetControllers').controller('AccountRegisterCtrl', ['$scope',
   function($scope, Account, AccountTransaction, Transaction, Category, AccountTransactionBalance, $log, $stateParams) {
     $scope.id = $stateParams.id;
     
+    $scope.newTransaction = {};
+    
+    $scope.today = function() {
+    $scope.newTransaction.transactionDt = new Date();
+	  };
+	$scope.today();
+  
     $scope.dateOptions = {
 	    formatYear: 'yy',
 	    startingDay: 1
@@ -35,9 +42,11 @@ angular.module('budgetControllers').controller('AccountRegisterCtrl', ['$scope',
 						    ]
 	};
 	
+	$scope.selectedCategory = {};
+	
 	 $scope.saveTransaction = function() {
-	 	$scope.newTransaction.accountId = $stateParams.id;
-	 	$scope.newTransaction.categoryId = $scope.selectedCategory.id;
+	 	$scope.newTransaction.accountId = Number($stateParams.id);
+	 	$scope.newTransaction.categoryId = Number($scope.selectedCategory.id);
    	 	Transaction.save([], $scope.newTransaction, function(value, responseHeaders) {
    	 		$scope.refresh();
    	 	})
